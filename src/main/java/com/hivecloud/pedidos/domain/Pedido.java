@@ -5,19 +5,26 @@ import java.util.List;
 public class Pedido {
 
 	private long id;
-	private List<Prato> pedidos;
+	private List<Prato> pratos;
 
-	public List<Prato> getPedidos() {
-		return pedidos;
+	public List<Prato> getPratos() {
+		return pratos;
 	}
-	public void setPedidos(List<Prato> pedidos) {
-		this.pedidos = pedidos;
+
+	public void setPratos(List<Prato> pratos) {
+		this.pratos = pratos;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public Pedido() {
 
 	}
-
-
 
 }

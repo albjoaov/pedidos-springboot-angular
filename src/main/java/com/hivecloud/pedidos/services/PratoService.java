@@ -21,11 +21,12 @@ public class PratoService {
 
 		try {
 			List<Prato> pratos = objectMapper.readValue(inputStream, typeReference);
-			System.out.println("Prato object\n" + pratos);
+			System.out.println(pratos);
 			return pratos;
 		}
 		catch (IOException e) {
 			System.out.println("Unable to handle pratos: " + e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 	}
