@@ -1,0 +1,43 @@
+[
+  {
+    "nome": "Frango à Parmegiana",
+    "acompanhamentos": [
+      "Spaghetti",
+      "Arroz",
+      "Feijão",
+      "Purê de Batatas"
+    ],
+    "preco": 14.9
+  },
+  {
+    "nome": "Filé de Tilápia",
+    "acompanhamentos": [
+      "Arroz",
+      "Feijão",
+      "Purê de Batatas",
+      "Salada",
+      "Alho"
+    ],
+    "preco": 17.9
+  },
+  {
+    "nome": "Maminha",
+    "acompanhamentos": [
+      "Pirão",
+      "Arroz Branco",
+      "Arroz Integral"
+    ],
+    "preco": 16.9
+  },
+  {
+    "nome": "Peito de Frango Assado",
+    "acompanhamentos": [
+      "Arroz",
+      "Feijão",
+      "Salada",
+      "Molho de Pimenta",
+      "Batata"
+    ],
+    "preco": 15.9
+  }
+]
