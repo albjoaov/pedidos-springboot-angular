@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hivecloud.pedidos.domain.Prato;
-import com.hivecloud.pedidos.services.PedidoService;
 import com.hivecloud.pedidos.services.PratoService;
 
 @RestController
@@ -20,8 +19,6 @@ public class PratoController {
 
 	@Autowired
 	private PratoService pratoService;
-	@Autowired
-	private PedidoService pedidoService;
 
 	@GetMapping
 	public ResponseEntity<List<Prato>> searchPratos() throws IOException {
