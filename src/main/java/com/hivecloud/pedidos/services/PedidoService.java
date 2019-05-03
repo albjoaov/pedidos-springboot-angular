@@ -11,20 +11,15 @@ import com.hivecloud.pedidos.domain.Pedido;
 @Service
 public class PedidoService {
 
-	public Pedido save(Pedido pedido) throws IOException {
+	public void save(Pedido pedido) throws IOException {
 
 		ObjectMapper objectMapper = new ObjectMapper();
-		FileOutputStream file = new FileOutputStream("teste.json");
-
+		FileOutputStream file = new FileOutputStream("./src/main/resources/json/pedidos.json");
 		try {
 			objectMapper.writeValue(file, pedido);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
-		return null;
-
 
 	}
 

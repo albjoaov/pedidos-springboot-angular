@@ -14,6 +14,16 @@ public class Prato {
 
 	}
 
+	public Prato(long id, String nome, List<String> acompanhamentos, BigDecimal preco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.acompanhamentos = acompanhamentos;
+		this.preco = preco;
+	}
+
+
+
 	public String getNome() {
 		return nome;
 	}
