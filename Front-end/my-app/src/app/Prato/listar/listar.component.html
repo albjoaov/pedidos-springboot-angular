@@ -8,19 +8,17 @@
       <table class="table table-hover">
         <thead>
           <tr class="text-center">
-            <th>Id</th>
             <th>Nome</th>
             <th>Acompanhamentos</th>
             <th>Preço</th>
-            <th>Ações</th>
+            <th>Compor pedido</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="text-center">
-            <td>teste</td>
-            <td>teste</td>
-            <td><button class="btn btn-warning">Visualizar</button></td>
-            <td>teste</td>
+          <tr *ngFor="let prato of pratos" class="text-center">
+            <td>{{prato.nome}}</td>
+            <td>{{prato.acompanhamentos}}</td>
+            <td>{{prato.preco}}</td>
             <td>
               <button class="btn btn-success">Adicionar</button>
             </td>

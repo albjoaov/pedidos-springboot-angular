@@ -1,5 +1,5 @@
 export class Prato{
-    id:number;
+    // id:number;
     nome:String;
     acompanhamentos:String[];
     preco:number;
