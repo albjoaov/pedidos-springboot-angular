@@ -4,22 +4,25 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListarComponent } from './Prato/listar/listar.component';
-import { AddComponent } from './Prato/add/add.component';
-import { FormsModule } from '@angular/forms'
+import { ListarComponent } from './Components/Prato/listar/listar.component';
+import { AddComponent } from './Components/Prato/add/add.component';
 import { PratoService } from './Service/prato.service'
+import { FormsModule } from '@angular/forms';
+import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.component'
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarComponent,
-    AddComponent
+    AddComponent,
+    AddPedidoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [PratoService],
   bootstrap: [AppComponent]

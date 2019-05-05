@@ -1,5 +1,4 @@
 <div class="container">
-<hr>
   <div class="card">
     <div class="card-header">
       <h3>Pratos</h3>
@@ -18,7 +17,7 @@
           <tr *ngFor="let prato of pratos" class="text-center">
             <td>{{prato.nome}}</td>
             <td>{{prato.acompanhamentos}}</td>
-            <td>{{prato.preco}}</td>
+            <td>R$ {{prato.preco}}</td>
             <td>
               <button class="btn btn-success">Adicionar</button>
             </td>

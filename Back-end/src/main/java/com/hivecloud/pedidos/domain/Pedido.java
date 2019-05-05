@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Pedido {
 
-	private long id;
+	// private long id;
 	private List<Prato> pratos;
 
 	public List<Prato> getPratos() {
@@ -15,13 +15,13 @@ public class Pedido {
 		this.pratos = pratos;
 	}
 
-	public long getId() {
+	/*public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 
 	public Pedido() {
 

@@ -10,10 +10,14 @@ export class AppComponent {
 
   constructor(private router:Router){}
 
-  Listar(){
-    this.router.navigate(["listar"])
+  listarPratos(){
+    this.router.navigate(["listar-pratos"])
   }
-  Novo(){
-    this.router.navigate(["novo"])
+  novoPrato(){
+    this.router.navigate(["novo-prato"])
+  }
+
+  novoPedido(){
+    this.router.navigate(["novo-pedido"])
   }
 }
