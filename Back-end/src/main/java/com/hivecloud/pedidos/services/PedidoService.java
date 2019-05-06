@@ -1,6 +1,8 @@
 package com.hivecloud.pedidos.services;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -14,37 +16,32 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hivecloud.pedidos.domain.Pedido;
 import com.hivecloud.pedidos.domain.Prato;
+import com.hivecloud.pedidos.util.Constantes;
 
 @Service
 public class PedidoService {
 
 	public void save(Pedido pedido) throws IOException, ParseException {
 
-		appendJSONFile(pedido);
-
-		// if file exists -> append
-		// Senão, cria
-
-		/*ObjectMapper objectMapper = new ObjectMapper();
-		FileOutputStream file = new FileOutputStream("./src/main/resources/json/pedidos.json");
-		try {
-			objectMapper.writeValue(file, pedido);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
+		File f = new File(Constantes.JSON_PATH);
+		if (f.exists() && !f.isDirectory()) {
+			appendJSONFile(pedido);
+		} else {
+			createJSON(pedido);
+		}
 
 	}
 
 	private void appendJSONFile(Pedido pedido) throws ParseException, FileNotFoundException, IOException {
 		JSONParser parser = new JSONParser();
 		ObjectMapper objectMapper = new ObjectMapper();
+
 		String pedidoString = objectMapper.writeValueAsString(pedido);
-
 		JSONObject dadosNovos = (JSONObject) parser.parse(pedidoString);
-		JSONObject dadosAntigos = (JSONObject) parser.parse(new FileReader("./src/main/resources/json/pedidos.json"));
-
-		List<Prato> pratosAntigos = (List<Prato>) dadosAntigos.get("pratos");
 		List<Prato> pratosNovos = (List<Prato>) dadosNovos.get("pratos");
+
+		JSONObject dadosAntigos = (JSONObject) parser.parse(new FileReader(Constantes.JSON_PATH));
+		List<Prato> pratosAntigos = (List<Prato>) dadosAntigos.get("pratos");
 
 		JSONArray ja = new JSONArray();
 		ja.add(pratosAntigos);
@@ -54,22 +51,19 @@ public class PedidoService {
 
 		System.out.println(dadosAntigos);
 
+		FileOutputStream file = new FileOutputStream(Constantes.JSON_PATH);
+		objectMapper.writeValue(file, dadosAntigos);
 
+	}
 
-		/*JSONArray newRecord = (JSONArray) records.get("./src/main/resources/json/new-pedidos.json");
-
-		JSONObject newObj = new JSONObject();
-
-		records.put("pratos", pedido.getPratos());
-
-		newRecord.add(newObj);
-
-		try (FileWriter file = new FileWriter("./src/main/resources/json/pedidos.json")) {
-			file.write(newRecord.toJSONString());
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}*/
-
+	private void createJSON(Pedido pedido) throws FileNotFoundException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		FileOutputStream file = new FileOutputStream(Constantes.JSON_PATH);
+		try {
+			objectMapper.writeValue(file, pedido);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
