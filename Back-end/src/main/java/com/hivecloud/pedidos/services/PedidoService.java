@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hivecloud.pedidos.domain.Pedido;
 import com.hivecloud.pedidos.domain.Prato;
@@ -35,6 +36,9 @@ public class PedidoService {
 	private void appendJSONFile(Pedido pedido) throws ParseException, FileNotFoundException, IOException {
 		JSONParser parser = new JSONParser();
 		ObjectMapper objectMapper = new ObjectMapper();
+
+		objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
 
 		String pedidoString = objectMapper.writeValueAsString(pedido);
 		JSONObject dadosNovos = (JSONObject) parser.parse(pedidoString);

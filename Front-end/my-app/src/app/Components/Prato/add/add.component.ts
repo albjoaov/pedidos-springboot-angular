@@ -12,7 +12,11 @@ export class AddComponent implements OnInit {
 
   constructor(private router:Router, private service:PratoService ) { }
 
-  prato:Prato = new Prato();
+  preco:number
+  nome:String
+  acompanhamentos:String[]
+  
+  prato:Prato = new Prato(this.nome,this.acompanhamentos, this.preco);
 
   ngOnInit() {
   }

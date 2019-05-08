@@ -5,6 +5,10 @@ import java.util.List;
 public class Pedido {
 
 	// private long id;
+	public Pedido() {
+
+	}
+
 	private List<Prato> pratos;
 
 	public List<Prato> getPratos() {
@@ -15,6 +19,12 @@ public class Pedido {
 		this.pratos = pratos;
 	}
 
+	@Override
+	public String toString() {
+		return "Pedido [pratos=" + pratos + "]";
+	}
+
+
 	/*public long getId() {
 		return id;
 	}
@@ -22,9 +32,5 @@ public class Pedido {
 	public void setId(long id) {
 		this.id = id;
 	}*/
-
-	public Pedido() {
-
-	}
 
 }

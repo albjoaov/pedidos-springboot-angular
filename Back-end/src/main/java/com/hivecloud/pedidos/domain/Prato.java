@@ -1,20 +1,19 @@
 package com.hivecloud.pedidos.domain;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class Prato {
 
 	private long id;
 	private String nome;
-	private List<String> acompanhamentos;
+	private String[] acompanhamentos;
 	private BigDecimal preco;
 
 	public Prato() {
 
 	}
 
-	public Prato(long id, String nome, List<String> acompanhamentos, BigDecimal preco) {
+	public Prato(long id, String nome, String[] acompanhamentos, BigDecimal preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -30,10 +29,10 @@ public class Prato {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<String> getAcompanhamentos() {
+	public String[] getAcompanhamentos() {
 		return acompanhamentos;
 	}
-	public void setAcompanhamentos(List<String> acompanhamentos) {
+	public void setAcompanhamentos(String[] acompanhamentos) {
 		this.acompanhamentos = acompanhamentos;
 	}
 	public BigDecimal getPreco() {

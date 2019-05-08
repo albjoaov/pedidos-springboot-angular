@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hivecloud.pedidos.domain.Pedido;
 import com.hivecloud.pedidos.services.PedidoService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/pedido")
 public class PedidoController {
@@ -22,8 +21,10 @@ public class PedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Pedido> addPedido(@RequestBody Pedido pedido) throws IOException, ParseException {
+
+		System.out.println(pedido);
 
 		pedidoService.save(pedido);
 

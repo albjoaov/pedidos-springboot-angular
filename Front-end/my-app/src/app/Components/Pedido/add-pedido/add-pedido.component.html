@@ -4,23 +4,23 @@
       <h3> Adicionar pedido </h3>
     </div>
     <div class="card-body">
-      <form (submit)="addPedido()">
+      <form [formGroup] = "form" (ngSubmit)="addPedido()">
         <div class="form-group">
-          <label for=""> Prato </label>
-          <select name="nome" class="form-control" >
-            <option *ngFor="let prato of pratos" [ngValue]="prato">{{prato.nome}}</option>
+          <label for="nome"> Nome do Prato </label>
+          <select id="nome" formControlName="nome" class="form-control" >
+            <option *ngFor="let prato of pratoList" [value]="prato.nome" >{{prato.nome}}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for=""> Acompanhamentos </label>
-          <select name="acompanhamentos" class="form-control" >
-            <option *ngFor="let prato of pratos" >{{prato.acompanhamentos}}</option>
+          <label for="acompanhamentos"> Acompanhamentos </label>
+          <select formControlName="acompanhamentos" class="form-control" >
+            <option *ngFor="let prato of pratoList" [value]="prato.acompanhamentos">{{prato.acompanhamentos}}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for=""> Preço </label>
-          <select name="acompanhamentos" class="form-control" >
-            <option *ngFor="let prato of pratos" >{{prato.preco}}</option>
+          <label for="preco"> Preço </label>
+          <select formControlName="preco" class="form-control" >
+            <option *ngFor="let prato of pratoList" [value]="prato.preco">{{prato.preco}}</option>
           </select>
         </div>
         <button type="submit" class="btn btn-success"> Salvar </button>
