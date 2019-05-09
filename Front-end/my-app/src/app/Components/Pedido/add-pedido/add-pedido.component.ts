@@ -15,10 +15,6 @@ export class AddPedidoComponent implements OnInit {
 
   pratoList:Prato[];
   
-  preco:number
-  nome:String
-  acompanhamentos:Array<String>
-  
   novoPrato:Prato[] = []
   pedido:Pedido = new Pedido(this.novoPrato);
   
@@ -42,16 +38,11 @@ export class AddPedidoComponent implements OnInit {
 
   addPedido() {
     const novoPrato = this.form.value
-
     const acompanhamentosList = this.form.value.acompanhamentos.split(',');
-    console.log(acompanhamentosList)
-
+    
     novoPrato.acompanhamentos = acompanhamentosList
-
-    console.log(acompanhamentosList)
-
     this.pedido["pratos"].push(novoPrato)
-    console.log(this.pedido)
+    
     this.pedidoService.createPedido(this.pedido)
     .subscribe(data => {
       alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")

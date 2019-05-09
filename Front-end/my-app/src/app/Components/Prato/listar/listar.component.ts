@@ -16,7 +16,7 @@ export class ListarComponent implements OnInit {
 
   ngOnInit() {
     this.pratoService.getPratos()
-    .subscribe(data => { this.pratos = data; console.log(data)})
+    .subscribe(data => { this.pratos = data;})
   }
 
 }
