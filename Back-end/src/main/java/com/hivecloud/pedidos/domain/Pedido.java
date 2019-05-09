@@ -4,12 +4,11 @@ import java.util.List;
 
 public class Pedido {
 
-	// private long id;
+	private List<Prato> pratos;
+
 	public Pedido() {
 
 	}
-
-	private List<Prato> pratos;
 
 	public List<Prato> getPratos() {
 		return pratos;
@@ -27,14 +26,5 @@ public class Pedido {
 	public String toString() {
 		return "Pedido [pratos=" + pratos + "]";
 	}
-
-
-	/*public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}*/
 
 }

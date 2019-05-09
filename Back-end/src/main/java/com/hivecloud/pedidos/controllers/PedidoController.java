@@ -26,6 +26,8 @@ public class PedidoController {
 
 		pedidoService.save(pedido);
 
+		return ResponseEntity.ok().body((pedido));
+
 		/*
 		 * URI location =
 		 * ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand
@@ -34,7 +36,6 @@ public class PedidoController {
 
 		// return ResponseEntity.created(location).body((pedido));
 
-		return ResponseEntity.ok().body((pedido));
 	}
 
 }

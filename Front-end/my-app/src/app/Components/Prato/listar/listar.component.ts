@@ -12,11 +12,11 @@ import { Prato } from 'src/app/Model/Prato';
 export class ListarComponent implements OnInit {
 
   pratos:Prato[];
-  constructor(private service:PratoService, private router:Router) { }
+  constructor(private pratoService:PratoService, private router:Router) { }
 
   ngOnInit() {
-    this.service.getPratos()
-    .subscribe(data => { this.pratos = data; })
+    this.pratoService.getPratos()
+    .subscribe(data => { this.pratos = data; console.log(data)})
   }
 
 }

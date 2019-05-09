@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Prato {
 
-	private long id;
 	private String nome;
 	private List<String> acompanhamentos;
 	private BigDecimal preco;
@@ -14,9 +13,8 @@ public class Prato {
 
 	}
 
-	public Prato(long id, String nome, List<String> acompanhamentos, BigDecimal preco) {
+	public Prato(String nome, List<String> acompanhamentos, BigDecimal preco) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.acompanhamentos = acompanhamentos;
 		this.preco = preco;

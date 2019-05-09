@@ -18,8 +18,6 @@ export class AddPedidoComponent implements OnInit {
   preco:number
   nome:String
   acompanhamentos:Array<String>
-
-  // novoPrato:Prato[] = new Prato(this.nome,this.acompanhamentos, this.preco);
   
   novoPrato:Prato[] = []
   pedido:Pedido = new Pedido(this.novoPrato);
@@ -58,16 +56,9 @@ export class AddPedidoComponent implements OnInit {
     .subscribe(data => {
       alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
       this.form.reset();
-
-      // Só enviar o form.value. Mudar a estrutura de Models. Mandando um form.value eu to mandando só um objeto de prato
-      // No back eu passo a receber um prato e eu seto esse prato em um pedido. 
     });
   }
 
-  onSubmit(){
 
-    console.log(this.form.value);
-
-  }
 
 }

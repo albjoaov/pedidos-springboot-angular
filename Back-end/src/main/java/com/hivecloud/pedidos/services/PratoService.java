@@ -21,7 +21,6 @@ public class PratoService {
 
 		try {
 			List<Prato> pratos = objectMapper.readValue(inputStream, typeReference);
-			System.out.println(pratos);
 			return pratos;
 		}
 		catch (IOException e) {
