@@ -24,8 +24,6 @@ public class PedidoController {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Pedido> addPedido(@RequestBody Pedido pedido) throws IOException, ParseException {
 
-		System.out.println(pedido);
-
 		pedidoService.save(pedido);
 
 		// System.out.println("Pedido adicionado - id: " + pedido.getId());

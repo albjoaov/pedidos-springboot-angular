@@ -44,12 +44,11 @@ export class AddPedidoComponent implements OnInit {
 
   addPedido() {
     const novoPrato = this.form.value
-    console.log(this.pedido)
     this.pedido["pratos"].push(novoPrato)
     console.log(this.pedido)
     this.pedidoService.createPedido(this.pedido)
     .subscribe(data => {
-      alert("Pedido adicionado com sucesso! Acessea listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
+      alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
       this.form.reset();
 
       // Só enviar o form.value. Mudar a estrutura de Models. Mandando um form.value eu to mandando só um objeto de prato

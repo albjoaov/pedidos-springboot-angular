@@ -44,7 +44,7 @@ public class Prato {
 
 	@Override
 	public String toString() {
-		return "Prato [nome=" + nome + ", acompanhamentos=" + acompanhamentos + ", preco=" + preco + "]";
+		return "[nome=" + nome + ", acompanhamentos=" + acompanhamentos + ", preco=" + preco + "]";
 	}
 
 

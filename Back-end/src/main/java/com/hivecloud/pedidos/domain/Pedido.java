@@ -23,10 +23,10 @@ public class Pedido {
 		this.pratos.addAll(pratos);
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
 		return "Pedido [pratos=" + pratos + "]";
-	}*/
+	}
 
 
 	/*public long getId() {
