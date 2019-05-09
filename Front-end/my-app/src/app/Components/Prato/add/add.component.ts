@@ -14,7 +14,7 @@ export class AddComponent implements OnInit {
 
   preco:number
   nome:String
-  acompanhamentos:String[]
+  acompanhamentos:Array<String>
   
   prato:Prato = new Prato(this.nome,this.acompanhamentos, this.preco);
 

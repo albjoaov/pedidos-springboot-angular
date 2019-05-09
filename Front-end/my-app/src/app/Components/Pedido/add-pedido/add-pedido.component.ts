@@ -17,7 +17,7 @@ export class AddPedidoComponent implements OnInit {
   
   preco:number
   nome:String
-  acompanhamentos:String[]
+  acompanhamentos:Array<String>
 
   // novoPrato:Prato[] = new Prato(this.nome,this.acompanhamentos, this.preco);
   
@@ -44,6 +44,14 @@ export class AddPedidoComponent implements OnInit {
 
   addPedido() {
     const novoPrato = this.form.value
+
+    const acompanhamentosList = this.form.value.acompanhamentos.split(',');
+    console.log(acompanhamentosList)
+
+    novoPrato.acompanhamentos = acompanhamentosList
+
+    console.log(acompanhamentosList)
+
     this.pedido["pratos"].push(novoPrato)
     console.log(this.pedido)
     this.pedidoService.createPedido(this.pedido)
