@@ -19,10 +19,14 @@ public class Pedido {
 		this.pratos = pratos;
 	}
 
-	@Override
+	public void adicionarPratos(List<Prato> pratos) {
+		this.pratos.addAll(pratos);
+	}
+
+	/*@Override
 	public String toString() {
 		return "Pedido [pratos=" + pratos + "]";
-	}
+	}*/
 
 
 	/*public long getId() {

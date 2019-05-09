@@ -5,18 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hivecloud.pedidos.domain.Pedido;
-import com.hivecloud.pedidos.domain.Prato;
 import com.hivecloud.pedidos.util.Constantes;
 
 @Service
@@ -26,19 +20,27 @@ public class PedidoService {
 
 		File f = new File(Constantes.JSON_PATH);
 		if (f.exists() && !f.isDirectory()) {
-			appendJSONFile(pedido);
+			getJSONFile(pedido);
 		} else {
 			createJSON(pedido);
 		}
 
 	}
 
-	private void appendJSONFile(Pedido pedido) throws ParseException, FileNotFoundException, IOException {
-		JSONParser parser = new JSONParser();
+	private void getJSONFile (Pedido novoPedido) throws ParseException, FileNotFoundException, IOException {
+		FileReader fileReader = new FileReader(Constantes.JSON_PATH);
 		ObjectMapper objectMapper = new ObjectMapper();
 
-		objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		Pedido pedidosAntigos = objectMapper.readValue(fileReader, Pedido.class);
 
+		pedidosAntigos.adicionarPratos(novoPedido.getPratos());
+
+		System.out.println(pedidosAntigos);
+
+		/*
+
+		JSONParser parser = new JSONParser();
+		ObjectMapper objectMapper = new ObjectMapper();
 
 		String pedidoString = objectMapper.writeValueAsString(pedido);
 		JSONObject dadosNovos = (JSONObject) parser.parse(pedidoString);
@@ -57,7 +59,7 @@ public class PedidoService {
 
 		FileOutputStream file = new FileOutputStream(Constantes.JSON_PATH);
 		objectMapper.writeValue(file, dadosAntigos);
-
+		 */
 	}
 
 	private void createJSON(Pedido pedido) throws FileNotFoundException {
