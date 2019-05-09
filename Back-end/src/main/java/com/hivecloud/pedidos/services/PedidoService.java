@@ -23,8 +23,9 @@ public class PedidoService {
 		File f = new File(Constantes.JSON_PATH);
 
 		boolean isFileExists = f.exists() && !f.isDirectory();
+		boolean isJSONEmpty = isJSONEmpty();
 
-		if (isFileExists) {
+		if (isFileExists && !isJSONEmpty) {
 			overwriteValidJSON(novoPedido);
 		} else {
 			createJSON(novoPedido);
@@ -37,27 +38,29 @@ public class PedidoService {
 		FileReader fileReader = new FileReader(Constantes.JSON_PATH);
 		ObjectMapper objectMapper = new ObjectMapper();
 
+		Pedido pedidosSalvos = objectMapper.readValue(fileReader, Pedido.class);
+
+		List<Prato> novosPratos = novoPedido.getPratos();
+		List<Prato> pratosSalvos = pedidosSalvos.getPratos();
+
+		// Verifica se o JSON é válido, isto é, Verifica se o objeto JSON tem pratos
+		if (pratosSalvos != null) {
+
+			pedidosSalvos.adicionarPratos(novosPratos);
+			createJSON(pedidosSalvos);
+
+		} else {
+			createJSON(novoPedido);
+		}
+	}
+
+	private boolean isJSONEmpty() {
 		File JSON = new File(Constantes.JSON_PATH);
 
 		if (JSON.length() == 0) {
-
-			System.out.println("File is empty ...");
-
+			return true;
 		} else {
-
-			Pedido pedidosSalvos = objectMapper.readValue(fileReader, Pedido.class);
-
-			List<Prato> novosPratos = novoPedido.getPratos();
-			List<Prato> pratosSalvos = pedidosSalvos.getPratos();
-
-			if (pratosSalvos != null) {
-
-				pedidosSalvos.adicionarPratos(novosPratos);
-				createJSON(pedidosSalvos);
-
-			} else {
-				createJSON(novoPedido);
-			}
+			return false;
 		}
 
 	}
