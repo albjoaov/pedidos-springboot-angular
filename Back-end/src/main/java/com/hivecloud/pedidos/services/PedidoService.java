@@ -10,8 +10,6 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hivecloud.pedidos.domain.Pedido;
 import com.hivecloud.pedidos.domain.Prato;
@@ -25,46 +23,49 @@ public class PedidoService {
 		File f = new File(Constantes.JSON_PATH);
 
 		boolean isFileExists = f.exists() && !f.isDirectory();
-		boolean isJSONValid = isJSONValid();
 
-		if (isFileExists && isJSONValid) {
-			overwriteJSON(novoPedido);
+		if (isFileExists) {
+			overwriteValidJSON(novoPedido);
 		} else {
 			createJSON(novoPedido);
 		}
 
 	}
 
-	private void overwriteJSON(Pedido novoPedido) throws ParseException, FileNotFoundException, IOException {
-
-		FileReader fileReader = new FileReader(Constantes.JSON_PATH);
-		ObjectMapper objectMapper = new ObjectMapper();
-		Pedido pedidosSalvos = objectMapper.readValue(fileReader, Pedido.class);
-
-		List<Prato> novosPratos = novoPedido.getPratos();
-		pedidosSalvos.adicionarPratos(novosPratos);
-		createJSON(pedidosSalvos);
-
-	}
-
-	private boolean isJSONValid() throws JsonParseException, JsonMappingException, IOException {
+	private void overwriteValidJSON(Pedido novoPedido) throws ParseException, FileNotFoundException, IOException {
 
 		FileReader fileReader = new FileReader(Constantes.JSON_PATH);
 		ObjectMapper objectMapper = new ObjectMapper();
 
-		Pedido pedidosSalvos = objectMapper.readValue(fileReader, Pedido.class);
-		List<Prato> pratosSalvos = pedidosSalvos.getPratos();
+		File JSON = new File(Constantes.JSON_PATH);
 
-		if (pratosSalvos != null) {
-			return true;
+		if (JSON.length() == 0) {
+
+			System.out.println("File is empty ...");
+
 		} else {
-			return false;
+
+			Pedido pedidosSalvos = objectMapper.readValue(fileReader, Pedido.class);
+
+			List<Prato> novosPratos = novoPedido.getPratos();
+			List<Prato> pratosSalvos = pedidosSalvos.getPratos();
+
+			if (pratosSalvos != null) {
+
+				pedidosSalvos.adicionarPratos(novosPratos);
+				createJSON(pedidosSalvos);
+
+			} else {
+				createJSON(novoPedido);
+			}
 		}
+
 	}
 
 	private void createJSON(Pedido pedido) throws FileNotFoundException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		FileOutputStream file = new FileOutputStream(Constantes.JSON_PATH);
+
 		try {
 			objectMapper.writeValue(file, pedido);
 		} catch (IOException e) {

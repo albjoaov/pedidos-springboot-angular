@@ -21,12 +21,10 @@ public class PedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Pedido> addPedido(@RequestBody Pedido pedido) throws IOException, ParseException {
 
 		pedidoService.save(pedido);
-
-		// System.out.println("Pedido adicionado - id: " + pedido.getId());
 
 		/*
 		 * URI location =
@@ -35,6 +33,7 @@ public class PedidoController {
 		 */
 
 		// return ResponseEntity.created(location).body((pedido));
+
 		return ResponseEntity.ok().body((pedido));
 	}
 
