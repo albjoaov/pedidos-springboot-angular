@@ -35,12 +35,6 @@ export class AddPedidoComponent implements OnInit {
 
   loadMultiSelectData() {
     this.dropdownList = []
-    //   { text: 'Mumbai' },
-    //   { text: 'Bangaluru' },
-    //   { text: 'Pune' },
-    //   { text: 'Navsari' },
-    //   { text: 'New Delhi' }
-    // ];
     this.selectedItems = [];
     this.dropdownSettings = {
       singleSelection: false,
@@ -75,16 +69,17 @@ export class AddPedidoComponent implements OnInit {
         });
         this.dropdownList = Array.from(meuSet);
       });
-
   }
 
   onItemSelect(item: any) {
     this.selectedItems.push(item)
+    console.log(this.selectedItems)
   }
 
   onItemDeSelect(item: any) {
-    const valueToRemove = item.id
-    this.selectedItems = this.selectedItems.filter(item => { return item.id != valueToRemove })
+    this.selectedItems = this.selectedItems.filter(element => element != item)
+    console.log(this.selectedItems)
+
   }
 
 
@@ -98,12 +93,10 @@ export class AddPedidoComponent implements OnInit {
     const pratos: Prato[] = []
     const pedido: Pedido = new Pedido(pratos);
 
-
     const novoPrato = this.form.value
+    console.log(novoPrato);
 
     console.log(this.selectedItems);
-    const acompanhamentosList = this.form.value.acompanhamentos.split(',');
-    novoPrato.acompanhamentos = acompanhamentosList
 
     pedido["pratos"].push(novoPrato)
     this.pedidoService.createPedido(pedido)
