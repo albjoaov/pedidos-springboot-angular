@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +23,9 @@ import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.co
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
+
   ],
   providers: [PratoService],
   bootstrap: [AppComponent]
