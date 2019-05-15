@@ -13,14 +13,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AddPedidoComponent implements OnInit {
 
-  pratoList:Prato[];
-  
-  novoPrato:Prato[] = []
-  pedido:Pedido = new Pedido(this.novoPrato);
-  
+  pratoList: Prato[];
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private pratoService:PratoService, private pedidoService:PedidoService, private router:Router) { }
+  constructor(private formBuilder: FormBuilder, private pratoService: PratoService, private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit() {
     this.populaInputs();
@@ -28,26 +24,28 @@ export class AddPedidoComponent implements OnInit {
       nome: [null],
       acompanhamentos: [null],
       preco: [null]
-    }) 
+    })
   }
 
-  populaInputs(){
+  populaInputs() {
     this.pratoService.getPratos()
-    .subscribe(data => { this.pratoList = data; })
+      .subscribe(data => { this.pratoList = data; })
   }
 
   addPedido() {
+    const pratos: Prato[] = []
+    const pedido: Pedido = new Pedido(pratos);
+    
     const novoPrato = this.form.value
     const acompanhamentosList = this.form.value.acompanhamentos.split(',');
-    
     novoPrato.acompanhamentos = acompanhamentosList
-    this.pedido["pratos"].push(novoPrato)
-    
-    this.pedidoService.createPedido(this.pedido)
-    .subscribe(data => {
-      alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
-      this.form.reset();
-    });
+
+    pedido["pratos"].push(novoPrato)
+    this.pedidoService.createPedido(pedido)
+      .subscribe(data => {
+        alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
+        this.form.reset();
+      });
   }
 
 
