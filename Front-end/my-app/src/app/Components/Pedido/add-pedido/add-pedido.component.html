@@ -18,7 +18,8 @@
           [data]="dropdownList"
           formControlName="acompanhamentos"
           [settings]="dropdownSettings"
-          (onSelect)="onItemSelect($event)"> </ng-multiselect-dropdown>
+          (onSelect)="onItemSelect($event)"
+          (onDeSelect)="onItemDeSelect($event)"> </ng-multiselect-dropdown>
         </div>
         <div class="form-group">
           <label for="preco"> Preço </label>
