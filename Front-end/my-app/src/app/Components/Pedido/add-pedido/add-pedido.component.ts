@@ -15,6 +15,7 @@ export class AddPedidoComponent implements OnInit {
 
   pratoList: Prato[];
   form: FormGroup;
+  listaPratoPreco: any[]
 
   dropdownList = [];
   selectedItems = [];
@@ -23,6 +24,7 @@ export class AddPedidoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private pratoService: PratoService, private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit() {
+    this.teste();
     this.populaDropdownList();
     this.populaInputs();
     this.loadMultiSelectData();
@@ -73,37 +75,52 @@ export class AddPedidoComponent implements OnInit {
 
   onItemSelect(item: any) {
     this.selectedItems.push(item)
-    console.log(this.selectedItems)
   }
 
   onItemDeSelect(item: any) {
     this.selectedItems = this.selectedItems.filter(element => element != item)
-    console.log(this.selectedItems)
-
   }
-
-
 
   populaInputs() {
     this.pratoService.getPratos()
       .subscribe(data => { this.pratoList = data; })
   }
 
+  teste() {
+    this.pratoService.getPratos()
+      .subscribe(data => {
+      this.listaPratoPreco = data;
+        this.listaPratoPreco.forEach(element => {
+          delete element.acompanhamentos;
+        });
+      });
+
+
+  }
+
   addPedido() {
     const pratos: Prato[] = []
     const pedido: Pedido = new Pedido(pratos);
-
+    let novoPreco: number = 0;
     const novoPrato = this.form.value
+    
+    this.listaPratoPreco.forEach(element => {
+        if (novoPrato.nome === element.nome) {
+            novoPreco = element.preco
+        }
+    });
+
+    // console.log(this.listaPratoPreco);
+    //console.log(novoPreco);
+    novoPrato.preco = novoPreco;
     console.log(novoPrato);
 
-    console.log(this.selectedItems);
-
     pedido["pratos"].push(novoPrato)
-    this.pedidoService.createPedido(pedido)
-      .subscribe(data => {
-        alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
-        this.form.reset();
-      });
+    // this.pedidoService.createPedido(pedido)
+    //   .subscribe(data => {
+    //     alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
+    //     this.form.reset();
+    //   });
   }
 
 
