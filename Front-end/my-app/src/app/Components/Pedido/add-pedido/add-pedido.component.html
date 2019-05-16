@@ -8,14 +8,14 @@
 
         <div class="form-group" [ngClass]="putCSSError('nome')" >
           <label for="nome"> Prato </label>
-          <select id="nome" formControlName="nome" class="form-control" >
+          <select id="nome" formControlName="nome" class="form-control nome" >
             <option *ngFor="let prato of pratoListInput" [value]="prato.nome" >{{prato.nome}}</option>
           </select>
 
-          <div *ngIf = "false" 
+          <!-- <div *ngIf = "nome.valid" 
           class="alert alert-dange" role="alert">
             A escolha do prato é obrigatória
-          </div>
+          </div> -->
         </div>
 
         <div class="form-group">
