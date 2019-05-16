@@ -6,8 +6,8 @@
     <div class="card-body">
       <form [formGroup] = "form" (ngSubmit)="addPedido()">
         <div class="form-group">
-          <label for="nome"> Nome do Prato </label>
-          <select id="nome" formControlName="nome" class="form-control" >
+          <label for="nome"> Prato </label>
+          <select id="nome" formControlName="nome" class="form-control"  >
             <option *ngFor="let prato of pratoList" [value]="prato.nome" >{{prato.nome}}</option>
           </select>
         </div>

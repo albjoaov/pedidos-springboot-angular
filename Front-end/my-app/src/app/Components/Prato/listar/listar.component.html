@@ -13,14 +13,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let prato of pratos" class="text-center">
-            <td>{{prato.nome}}</td>
-            <td>{{prato.acompanhamentos}}</td>
-            <td>R$ {{prato.preco}}</td>
+          <tr *ngFor="let prato of pratos" class="text-center align-middle">
+            <td class="text-center align-middle" >{{prato.nome}}</td>
+              <td >
+                <ul>
+                  <li style = "list-style:none;" *ngFor="let acompanhamentos of prato.acompanhamentos">
+                      {{acompanhamentos}}
+                  </li>
+                </ul>
+              </td>
+            <td class="text-center align-middle">R$ {{prato.preco}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
 </div>

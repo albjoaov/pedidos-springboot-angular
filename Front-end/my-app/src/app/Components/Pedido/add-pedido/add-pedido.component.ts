@@ -24,7 +24,6 @@ export class AddPedidoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private pratoService: PratoService, private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit() {
-    this.teste();
     this.populaDropdownList();
     this.populaInputs();
     this.loadMultiSelectData();
@@ -86,33 +85,28 @@ export class AddPedidoComponent implements OnInit {
       .subscribe(data => { this.pratoList = data; })
   }
 
-  teste() {
-    this.pratoService.getPratos()
-      .subscribe(data => {
-      this.listaPratoPreco = data;
-        this.listaPratoPreco.forEach(element => {
-          delete element.acompanhamentos;
-        });
-      });
+  getPreco(novoPrato: Prato): number {
+    let preco: number;
+    this.pratoList.forEach(element => {
 
+      if (novoPrato.nome === element.nome) {
+        preco = element.preco
+      }
+    });
 
+    return preco;
   }
 
   addPedido() {
     const pratos: Prato[] = []
     const pedido: Pedido = new Pedido(pratos);
-    let novoPreco: number = 0;
-    const novoPrato = this.form.value
-    
-    this.listaPratoPreco.forEach(element => {
-        if (novoPrato.nome === element.nome) {
-            novoPreco = element.preco
-        }
-    });
+    const novoPrato: Prato = this.form.value
+
+
 
     // console.log(this.listaPratoPreco);
     //console.log(novoPreco);
-    novoPrato.preco = novoPreco;
+    novoPrato.preco = this.getPreco(novoPrato);
     console.log(novoPrato);
 
     pedido["pratos"].push(novoPrato)
