@@ -10,6 +10,7 @@ import { ListarComponent } from './Components/Prato/listar/listar.component';
 import { PratoService } from './Service/prato.service'
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.component';
+import { FormDebugComponent } from './Components/form-debug/form-debug.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.co
     AppComponent,
     ListarComponent,
     AddPedidoComponent,
+    FormDebugComponent,
     
   ],
   imports: [
