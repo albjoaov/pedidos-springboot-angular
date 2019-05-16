@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PratoService } from 'src/app/Service/prato.service';
 import { Prato } from 'src/app/Model/Prato';
@@ -11,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './add-pedido.component.html',
   styleUrls: ['./add-pedido.component.css']
 })
-export class AddPedidoComponent implements OnInit, OnDestroy{
+export class AddPedidoComponent implements OnInit {
 
   pratoListInput: Prato[];
   pratoCart: Prato[] = [];
@@ -31,10 +31,6 @@ export class AddPedidoComponent implements OnInit, OnDestroy{
       nome: [null, [Validators.required, Validators.nullValidator]],
       acompanhamentos: [null, [Validators.required, Validators.nullValidator]],
     })
-  }
-
-  ngOnDestroy(): void {
-    throw new Error("Method not implemented.");
   }
 
   loadInputsForm() {

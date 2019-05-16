@@ -9,14 +9,15 @@ import { AppComponent } from './app.component';
 import { ListarComponent } from './Components/Prato/listar/listar.component';
 import { PratoService } from './Service/prato.service'
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.component'
+import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarComponent,
-    AddPedidoComponent
+    AddPedidoComponent,
+    
   ],
   imports: [
     BrowserModule,
