@@ -116,7 +116,7 @@ export class AddPedidoComponent implements OnInit {
     let listaPratosCart: Prato[] = []
     listaPratosCart = this.pratoCart
     this.pratoCart = [] // clean pratoCart data
-
+    
     const pedido: Pedido = new Pedido(listaPratosCart);
     this.sendPedido(pedido)
   }
