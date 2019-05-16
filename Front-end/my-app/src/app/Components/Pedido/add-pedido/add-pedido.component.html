@@ -4,11 +4,11 @@
       <h3> Adicionar pedido </h3>
     </div>
     <div class="card-body">
-      <form [formGroup] = "form" (ngSubmit)="addPedido()">
+      <form [formGroup] = "form" (ngSubmit)="addPrato()">
         <div class="form-group">
           <label for="nome"> Prato </label>
           <select id="nome" formControlName="nome" class="form-control"  >
-            <option *ngFor="let prato of pratoList" [value]="prato.nome" >{{prato.nome}}</option>
+            <option *ngFor="let prato of pratoListInput" [value]="prato.nome" >{{prato.nome}}</option>
           </select>
         </div>
         <div class="form-group">
@@ -21,8 +21,10 @@
           (onSelect)="onItemSelect($event)"
           (onDeSelect)="onItemDeSelect($event)"> </ng-multiselect-dropdown>
         </div>
-        <button type="submit" class="btn btn-success"> Salvar </button>
+        <button type="submit" class="btn btn-primary"> Adicionar prato </button>
       </form>
+      <button (click)="loadPedido()" class="btn btn-success" style="margin-top: 10px"> Enviar pedido </button>
+
     </div>
   </div>
 

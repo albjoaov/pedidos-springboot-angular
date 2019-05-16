@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { PratoService } from 'src/app/Service/prato.service';
 import { Prato } from 'src/app/Model/Prato';
 import { Pedido } from 'src/app/Model/Pedido';
 import { PedidoService } from 'src/app/Service/pedido.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-pedido',
   templateUrl: './add-pedido.component.html',
   styleUrls: ['./add-pedido.component.css']
 })
-export class AddPedidoComponent implements OnInit {
+export class AddPedidoComponent implements OnInit, OnDestroy{
 
-  pratoList: Prato[];
+  pratoListInput: Prato[];
+  pratoCart: Prato[] = [];
   form: FormGroup;
-  listaPratoPreco: any[]
 
   dropdownList = [];
   selectedItems = [];
@@ -24,14 +24,36 @@ export class AddPedidoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private pratoService: PratoService, private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit() {
-    this.populaDropdownList();
-    this.populaInputs();
+    this.loadInputsForm();
     this.loadMultiSelectData();
+
     this.form = this.formBuilder.group({
-      nome: [null],
-      acompanhamentos: [null],
-      preco: [null]
+      nome: [null, [Validators.required, Validators.nullValidator]],
+      acompanhamentos: [null, [Validators.required, Validators.nullValidator]],
     })
+  }
+
+  ngOnDestroy(): void {
+    throw new Error("Method not implemented.");
+  }
+
+  loadInputsForm() {
+    var listaPratos = []
+    const meuSet = new Set();
+
+    this.pratoService.getPratos()
+      .subscribe(data => { listaPratos = data; this.pratoListInput = data;
+
+        listaPratos.forEach(element => {
+
+          for (var key in element) {
+            if (element.hasOwnProperty(key) && key == 'acompanhamentos') {
+                element[key].forEach(acompanhamento => { meuSet.add(acompanhamento); });
+            }
+          }
+        });
+        this.dropdownList = Array.from(meuSet);
+      });
   }
 
   loadMultiSelectData() {
@@ -50,28 +72,6 @@ export class AddPedidoComponent implements OnInit {
     };
   }
 
-  populaDropdownList() {
-    var listaPratos = []
-    const meuSet = new Set();
-
-    this.pratoService.getPratos()
-      .subscribe(data => {
-        listaPratos = data;
-
-        listaPratos.forEach(element => {
-
-          for (var key in element) {
-            if (element.hasOwnProperty(key) && key == 'acompanhamentos') {
-              element[key].forEach(acompanhamento => {
-                meuSet.add(acompanhamento);
-              });
-            }
-          }
-        });
-        this.dropdownList = Array.from(meuSet);
-      });
-  }
-
   onItemSelect(item: any) {
     this.selectedItems.push(item)
   }
@@ -80,14 +80,9 @@ export class AddPedidoComponent implements OnInit {
     this.selectedItems = this.selectedItems.filter(element => element != item)
   }
 
-  populaInputs() {
-    this.pratoService.getPratos()
-      .subscribe(data => { this.pratoList = data; })
-  }
-
   getPreco(novoPrato: Prato): number {
     let preco: number;
-    this.pratoList.forEach(element => {
+    this.pratoListInput.forEach(element => {
 
       if (novoPrato.nome === element.nome) {
         preco = element.preco
@@ -97,24 +92,57 @@ export class AddPedidoComponent implements OnInit {
     return preco;
   }
 
-  addPedido() {
-    const pratos: Prato[] = []
-    const pedido: Pedido = new Pedido(pratos);
+  // addPedido() {
+  //   const pratos: Prato[] = []
+  //   const pedido: Pedido = new Pedido(pratos);
+  //   const novoPrato: Prato = this.form.value
+    
+  //   pratos.push(this.form.value);
+  //   console.log(pratos);
+
+  //   novoPrato.preco = this.getPreco(novoPrato);
+
+  //   pedido["pratos"].push(novoPrato)
+  //   // this.sendPedido(pedido);
+
+  // }
+
+  addPrato(){
     const novoPrato: Prato = this.form.value
-
-
-
-    // console.log(this.listaPratoPreco);
-    //console.log(novoPreco);
     novoPrato.preco = this.getPreco(novoPrato);
-    console.log(novoPrato);
 
-    pedido["pratos"].push(novoPrato)
-    // this.pedidoService.createPedido(pedido)
-    //   .subscribe(data => {
-    //     alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
-    //     this.form.reset();
-    //   });
+    this.pratoCart.push(novoPrato)
+    this.form.reset();
+    alert("Prato adicionado com sucesso!")
+  }
+
+  loadPedido(){
+    let listaPratosCart: Prato[] = []
+    listaPratosCart = this.pratoCart
+    this.pratoCart = [] // clean pratoCart data
+
+    const pedido: Pedido = new Pedido(listaPratosCart);
+    this.sendPedido(pedido)
+  }
+
+  sendPedido(pedido: Pedido){
+    console.log(pedido)
+    this.pedidoService.createPedido(pedido)
+      .subscribe(data => {
+        alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
+        this.form.reset();
+      });
+  }
+
+  checkValidTouched(field){
+    return !this.form.get(field).valid && this.form.get(field).touched
+  }
+
+  putCSSError(field){
+    return {
+      'has-error': this.checkValidTouched(field),
+      'has-feedback': this.checkValidTouched(field)
+    }
   }
 
 
