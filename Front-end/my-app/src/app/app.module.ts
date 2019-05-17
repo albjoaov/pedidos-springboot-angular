@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
+import { CommonModule } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +12,8 @@ import { PratoService } from './Service/prato.service'
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.component';
 import { FormDebugComponent } from './Components/form-debug/form-debug.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,16 @@ import { FormDebugComponent } from './Components/form-debug/form-debug.component
     ListarComponent,
     AddPedidoComponent,
     FormDebugComponent,
-    
+
   ],
   imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

@@ -5,6 +5,8 @@ import { Prato } from 'src/app/Model/Prato';
 import { Pedido } from 'src/app/Model/Pedido';
 import { PedidoService } from 'src/app/Service/pedido.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-add-pedido',
@@ -21,7 +23,7 @@ export class AddPedidoComponent implements OnInit {
   selectedItems = [];
   dropdownSettings = {};
 
-  constructor(private formBuilder: FormBuilder, private pratoService: PratoService, private pedidoService: PedidoService, private router: Router) { }
+  constructor(private toastr: ToastrService, private formBuilder: FormBuilder, private pratoService: PratoService, private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit() {
     this.loadInputsForm();
@@ -88,59 +90,65 @@ export class AddPedidoComponent implements OnInit {
     return preco;
   }
 
-  // addPedido() {
-  //   const pratos: Prato[] = []
-  //   const pedido: Pedido = new Pedido(pratos);
-  //   const novoPrato: Prato = this.form.value
-    
-  //   pratos.push(this.form.value);
-  //   console.log(pratos);
-
-  //   novoPrato.preco = this.getPreco(novoPrato);
-
-  //   pedido["pratos"].push(novoPrato)
-  //   // this.sendPedido(pedido);
-
-  // }
-
   addPrato(){
-    const novoPrato: Prato = this.form.value
-    novoPrato.preco = this.getPreco(novoPrato);
+    if (this.form.valid) {
+      
+      const novoPrato: Prato = this.form.value
+      novoPrato.preco = this.getPreco(novoPrato);
+  
+      this.pratoCart.push(novoPrato)
+      this.form.reset();
+      this.showSuccess("Adicionado com sucesso ao carrinho!", "Prato" );
+    }else {
+      this.showError("Você deve selecionar um prato e pelo menos um acompanhamento", "Prato");
+    }
 
-    this.pratoCart.push(novoPrato)
-    this.form.reset();
-    alert("Prato adicionado com sucesso!")
+    
   }
 
   loadPedido(){
     let listaPratosCart: Prato[] = []
     listaPratosCart = this.pratoCart
-    this.pratoCart = [] // clean pratoCart data
     
     const pedido: Pedido = new Pedido(listaPratosCart);
     this.sendPedido(pedido)
   }
 
   sendPedido(pedido: Pedido){
-    console.log(pedido)
-    this.pedidoService.createPedido(pedido)
-      .subscribe(data => {
-        alert("Pedido adicionado com sucesso! Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`")
-        this.form.reset();
-      });
-  }
+    console.log(this.pratoCart.length)
 
-  checkValidTouched(field){
-    return !this.form.get(field).valid && this.form.get(field).touched
-  }
+    if (this.pratoCart.length > 0) {
+      console.log(pedido)
 
-  putCSSError(field){
-    return {
-      'has-error': this.checkValidTouched(field),
-      'has-feedback': this.checkValidTouched(field)
+      this.pedidoService.createPedido(pedido)
+        .subscribe(data => {
+          this.showSuccess("Acesse a listagem dos pedidos no diretório ./src/main/resources/json/ no arquivo `pedidos.json`", "Pedido" );
+          this.form.reset();
+          this.pratoCart = [] // clean pratoCart data
+        });
+    } 
+    else {
+      this.showError("Você deve cadastrar pelo menos um prato ao carrinho", "Pedido");
     }
+     
   }
 
+  isPedidoValid(): boolean{
+    return this.pratoCart.length > 0;
+  }
 
+  showSuccess(message: string, entity: string) {
+    this.toastr.success(message, entity, {
+      progressBar: true,
+      closeButton: true,
+    });
+  }
+
+  showError(message: string, entity: string) {
+    this.toastr.error(message, entity, {
+      progressBar: true,
+      closeButton: true,
+    });
+  }
 
 }

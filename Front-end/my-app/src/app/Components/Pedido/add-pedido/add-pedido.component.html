@@ -1,21 +1,16 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <h3> Adicionar pedido </h3>
+      <h3> Adicionar prato ao carrinho </h3>
     </div>
     <div class="card-body">
       <form [formGroup] = "form" (ngSubmit)="addPrato()">
 
-        <div class="form-group" [ngClass]="putCSSError('nome')" >
+        <div class="form-group">
           <label for="nome"> Prato </label>
           <select id="nome" formControlName="nome" class="form-control nome" >
             <option *ngFor="let prato of pratoListInput" [value]="prato.nome" >{{prato.nome}}</option>
           </select>
-
-          <!-- <div *ngIf = "nome.valid" 
-          class="alert alert-dange" role="alert">
-            A escolha do prato é obrigatória
-          </div> -->
         </div>
 
         <div class="form-group">
@@ -29,10 +24,14 @@
           (onDeSelect)="onItemDeSelect($event)"> </ng-multiselect-dropdown>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid"> Adicionar prato </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid"> Adicionar prato ao carrinho </button>
       </form>
-      <button (click)="loadPedido()" class="btn btn-success" style="margin-top: 10px" [disabled]="!this.pratoCart.length > 0"> Enviar pedido </button>
+      <button (click)="loadPedido()" class="btn btn-success" style="margin-top: 10px" [disabled]="!this.pratoCart.length > 0"> Finalizar pedido </button>
       <app-form-debug [form]="form" ></app-form-debug>
+      <strong>Values from prato cart:</strong>
+      <pre>
+          <br/> {{ pratoCart | json }}
+      </pre>
     </div>
   </div>
 
