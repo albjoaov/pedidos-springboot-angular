@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h3>Lista de Pedidos</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr class="text-center">
+            <th>Nome</th>
+            <th>Acompanhamentos</th>
+            <th>Preço</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center align-middle" *ngFor="let prato of pedidos.pratos">
+            <td class="text-center align-middle"> {{prato.nome}} </td>
+            <td >
+              <ul>
+                <li style = "list-style:none;" *ngFor="let acompanhamentos of prato.acompanhamentos">
+                    {{acompanhamentos}}
+                </li>
+              </ul>
+            </td>
+            <td class="text-center align-middle">R$ {{prato.preco}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

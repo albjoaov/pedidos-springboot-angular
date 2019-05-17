@@ -9,6 +9,11 @@ public class Pedido {
 	public Pedido() {
 
 	}
+	
+	public Pedido(List<Prato> pratos) {
+		super();
+		this.pratos = pratos;
+	}
 
 	public List<Prato> getPratos() {
 		return pratos;

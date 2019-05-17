@@ -5,11 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hivecloud.pedidos.domain.Pedido;
 import com.hivecloud.pedidos.domain.Prato;
@@ -75,6 +80,27 @@ public class PedidoService {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Pedido readJSON() throws JsonParseException, JsonMappingException, IOException {
+		
+		File f = new File(Constantes.JSON_PATH);
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		boolean isFileExists = f.exists() && !f.isDirectory();
+		boolean isJSONEmpty = isJSONEmpty();
+
+		if (isFileExists && !isJSONEmpty) { 
+			Pedido pedidosSalvos = objectMapper.readValue(f, Pedido.class);
+			return pedidosSalvos;
+		}
+		
+		else { 
+		List<Prato> pratos = new ArrayList<Prato>();
+		return new Pedido(pratos); 
+		}
+			
+		
 	}
 
 }

@@ -14,6 +14,7 @@ import { AddPedidoComponent } from './Components/Pedido/add-pedido/add-pedido.co
 import { FormDebugComponent } from './Components/form-debug/form-debug.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ListPedidoComponent } from './Components/Pedido/list-pedido/list-pedido.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     ListarComponent,
     AddPedidoComponent,
     FormDebugComponent,
+    ListPedidoComponent,
 
   ],
   imports: [

@@ -13,8 +13,8 @@ export class AppComponent {
   listarPratos(){
     this.router.navigate(["listar-pratos"])
   }
-  novoPrato(){
-    this.router.navigate(["novo-prato"])
+  listPedido(){
+    this.router.navigate(["listar-pedido"])
   }
 
   novoPedido(){
